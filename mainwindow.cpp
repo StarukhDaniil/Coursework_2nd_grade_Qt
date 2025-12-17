@@ -55,24 +55,24 @@ void MainWindow::setupUi()
     QVBoxLayout *controlLayout = new QVBoxLayout();
 
     // Секція Bluetooth
-    controlLayout->addWidget(new QLabel("<h3>Налаштування Bluetooth:</h3>"));
+    controlLayout->addWidget(new QLabel("Налаштування Bluetooth:"));
     m_deviceNameEdit = new QLineEdit("ESP32_Graph"); // Типове ім'я
     controlLayout->addWidget(new QLabel("Ім'я пристрою:"));
     controlLayout->addWidget(m_deviceNameEdit);
-    m_scanButton = new QPushButton("🔍 Пошук та Підключення");
-    m_statusLabel = new QLabel("Статус: Очікування...");
+    m_scanButton = new QPushButton("Пошук та Підключення");
+    m_statusLabel = new QLabel("Очікування підключення");
     controlLayout->addWidget(m_scanButton);
     controlLayout->addWidget(m_statusLabel);
 
     // Секція Управління Сесією
-    controlLayout->addWidget(new QLabel("<h3>Сесія Графіку:</h3>"));
-    m_startButton = new QPushButton("▶️ Почати запис");
-    m_stopButton = new QPushButton("⏹️ Зупинити запис");
+    controlLayout->addWidget(new QLabel("Сесія Графіку:"));
+    m_startButton = new QPushButton("Почати запис");
+    m_stopButton = new QPushButton("Зупинити запис");
     controlLayout->addWidget(m_startButton);
     controlLayout->addWidget(m_stopButton);
 
     // Секція Історії
-    controlLayout->addWidget(new QLabel("<h3>Історія графіків:</h3>"));
+    controlLayout->addWidget(new QLabel("Історія графіків:"));
     m_historyList = new QListWidget();
     controlLayout->addWidget(m_historyList);
 
@@ -120,7 +120,7 @@ void MainWindow::deviceFoundAndConnect(const QBluetoothDeviceInfo &deviceInfo)
 
 void MainWindow::handleConnected(const QString &deviceName)
 {
-    m_statusLabel->setText(QString("🟢 Підключено до %1. Готовий до запису.").arg(deviceName));
+    m_statusLabel->setText(QString("Підключено до %1. Готовий до запису.").arg(deviceName));
     m_chart->setTitle(QString("Підключено до %1. Очікування запису.").arg(deviceName));
     m_startButton->setEnabled(true);
     m_scanButton->setEnabled(true); // Дозволяємо сканувати, щоб була можливість відключитися
@@ -128,7 +128,7 @@ void MainWindow::handleConnected(const QString &deviceName)
 
 void MainWindow::handleDisconnected()
 {
-    m_statusLabel->setText("🔴 Відключено. Перепідключіться.");
+    m_statusLabel->setText("Відключено. Перепідключіться.");
     m_chart->setTitle("Відключено. Дані недоступні.");
     m_scanButton->setEnabled(true);
     m_startButton->setEnabled(false);
@@ -137,7 +137,7 @@ void MainWindow::handleDisconnected()
 
 void MainWindow::handleError(const QString &message)
 {
-    m_statusLabel->setText(QString("❌ Помилка: %1").arg(message));
+    m_statusLabel->setText(QString("Помилка: %1").arg(message));
     QMessageBox::critical(this, "BLE Помилка", message);
     m_scanButton->setEnabled(true);
     m_startButton->setEnabled(false);
