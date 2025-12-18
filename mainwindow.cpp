@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_currentSeries(nullptr),
     m_currentX(0.0),
     m_sessionCounter(0),
-    minY(2000),
+    minY(4000),
     maxY(0)
 {
     setupUi();
@@ -170,8 +170,8 @@ void MainWindow::handleNewData(const QVector<float>& data)
     }
 
     // 3. Масштабування осі X
-    m_axisX->setRange(m_currentX - 100, m_currentX + 1);
-    m_axisY->setRange(minY, maxY);
+    m_axisX->setRange(m_currentX - 500, m_currentX + 1);
+    m_axisY->setRange(minY - 20, maxY + 20);
 }
 
 void MainWindow::startNewGraphSession()
@@ -201,6 +201,8 @@ void MainWindow::startNewGraphSession()
 
     // 4. Скидаємо лічильник X
     m_currentX = 0.0;
+
+    minY = 4000;
 
     m_startButton->setEnabled(false);
     m_stopButton->setEnabled(true);
